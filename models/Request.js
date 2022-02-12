@@ -4,29 +4,31 @@ const { Schema } = mongoose;
 const RequestSchema = new Schema(
   {
     fromId: {
-      unique: true,
       type: Number,
       required: true,
       index: 1,
     },
     toId: {
-      unique: true,
       type: Number,
       required: true,
       index: 1,
     },
-    fromSearchString: {
+    fromUserName: {
       type: String,
       required: false,
     },
-    toSearchString: {
+    toUserName: {
       type: String,
       required: false,
+    },
+    matched: {
+      type: Boolean,
+      required: true,
     },
   },
   { timestamps: true }
 );
 
-const Request = mongoose.model("Member", RequestSchema);
+const Request = mongoose.model("Request", RequestSchema);
 
 module.exports = Request;

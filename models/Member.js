@@ -33,10 +33,15 @@ const MemberSchema = new Schema(
       type: String,
       required: false,
     },
-    allStrikesUsed: {
-      type: Boolean,
+    strikesUsed: {
+      type: Number,
       required: true,
-      default: false,
+      default: 0,
+    },
+    available: {
+      type: Boolean,
+      required: false,
+      default: true,
     },
   },
   { timestamps: true }
