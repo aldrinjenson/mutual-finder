@@ -151,7 +151,12 @@ const handleButtons = (rows, uid = "") => {
     const key = rows[i].text + uid.hashCode();
     callBackKeys[key] = rows[i].onPress;
 
-    const keyBoardRow = { text: rows[i].text, callback_data: key };
+    const keyBoardRow = {
+      text: rows[i].text,
+      callback_data: key,
+      switch_inline_query: "sdf",
+      switch_inline_query_current_chat: "sd",
+    };
     newRow.push(keyBoardRow);
 
     if (i % 2 !== 0 || i === rows.length - 1) {
@@ -163,6 +168,7 @@ const handleButtons = (rows, uid = "") => {
   return {
     reply_markup: {
       inline_keyboard: markupRows,
+      switch_inline_query_current_chat: "sd",
     },
     parse_mode: "HTML",
   };
@@ -174,4 +180,5 @@ module.exports = {
   getPopupKeyboard,
   initializeLibFunctions,
   getAnswer,
+  handleMsgDelete,
 };

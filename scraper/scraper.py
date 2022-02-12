@@ -10,11 +10,11 @@ import json
 from os import listdir
 from os.path import isfile, join
 
-photosFolder = os.getcwd()+'/photos'
-photoNames = []
-for f in listdir(photosFolder):
-    if isfile(join(photosFolder, f)):
-        photoNames.append(f.split('.')[0])
+# photosFolder = os.getcwd()+'/photos'
+# photoNames = []
+# for f in listdir(photosFolder):
+#     if isfile(join(photosFolder, f)):
+#         photoNames.append(f.split('.')[0])
 
 re = "\033[1;31m"
 gr = "\033[1;32m"
@@ -98,6 +98,8 @@ count = 0
 photoCount = 0
 with open("members.json", 'w') as file:
     for user in all_participants:
+        print(user)
+        exit()
         if user.username:
             username = user.username
         else:
@@ -114,20 +116,21 @@ with open("members.json", 'w') as file:
         member = {"userId": user.id, "userName": username,
                   "fullName": name, "photoExists": False}
 
-        photoName = 'photos/'+str(user.id)
-        if str(user.id) not in photoNames:
-            photoPath = client.download_profile_photo(
-                user.id, photoName)
-            if photoPath:
-                member["photoExists"] = True
-                member["imgPath"] = photoPath
-                photoCount += 1
-            else:
-                member["photoExists"] = False
-        else:
-            member["photoExists"] = True
-            member["imgPath"] = photoName
-            photoCount += 1
+        print(member)
+        # photoName = 'photos/'+str(user.id)
+        # if str(user.id) not in photoNames:
+        #     photoPath = client.download_profile_photo(
+        #         user.id, photoName)
+        #     if photoPath:
+        #         member["photoExists"] = True
+        #         member["imgPath"] = photoPath
+        #         photoCount += 1
+        #     else:
+        #         member["photoExists"] = False
+        # else:
+        #     member["photoExists"] = True
+        #     member["imgPath"] = photoName
+        #     photoCount += 1
 
         all_members.append(member)
         time.sleep(1)
