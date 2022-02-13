@@ -1,6 +1,6 @@
 const { Request, Member } = require("../models");
 const { getAnswer, getAnswerFromButtonGroup } = require("../utils/lib");
-const maxStrikes = 3;
+const maxStrikes = 4;
 
 const sendController = async (bot, msg) => {
   const chatId = msg.chat.id;

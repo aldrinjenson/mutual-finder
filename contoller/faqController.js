@@ -33,8 +33,8 @@ const faqs = [
     a: "Nope. Once you remove yourself/make yourself unavailable, it's not possible to join back.",
   },
   {
-    q: "My name is not present here and I want to participate!",
-    a: "Forward the output of @getmyid_telegrambot to @bot_match_admin along with some proof to show you're an MECian. May take some time to get updated",
+    q: "My crush's name is not present in this list! Why?",
+    a: "Probably because your crush hasn't seen this bot before. Only when someone starts using the bot will they be shwon in the list. You can send the bot link to any group in which your crush is present so that she will get to know about the bot.",
   },
   {
     q: "Who made this bot?",
