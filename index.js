@@ -17,6 +17,8 @@ const { Member } = require("./models");
 // initial config
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 const app = express();
+const placeHolderImage =
+  "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.n1C1oxOvYLLyDIavrBFoNQHaHa%26pid%3DApi&f=1";
 bot.on("polling_error", console.log);
 initializeLibFunctions(bot);
 
@@ -66,7 +68,9 @@ bot.on("inline_query", (msg) => {
       const newMember = {
         id: m.chatId,
         type: "article",
-        thumb_url: `${process.env.BASE_URL}/${m.userId}.jpg`,
+        thumb_url: m.photoExists
+          ? `${process.env.BASE_URL}/${m.userId}.jpg`
+          : placeHolderImage,
         thumb_width: 6,
         thumb_height: 6,
         title: m.fullName,
@@ -84,7 +88,7 @@ bot.on("inline_query", (msg) => {
   bot.answerInlineQuery(msg.id, matchedMembers);
 });
 
-bot.onText(/\/removeme/, async (msg) => {
+bot.onText(/\/togglestatus/, async (msg) => {
   removeController(bot, msg, list);
 });
 

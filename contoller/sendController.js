@@ -19,6 +19,7 @@ const sendController = async (bot, msg) => {
       chatId,
       `You've already used all your ${maxStrikes} chances.\n`
     );
+    await Member.findOneAndUpdate({ chatId }, { allStrikesOut: true });
     return;
   }
   const requestsReceivedToThisUser = await Request.find({ toId: msg.from.id })
@@ -62,19 +63,21 @@ const sendController = async (bot, msg) => {
       chatId,
       `${toMemberName} was not the one who sent you the message.\nBut you can send an anonymous message to ${toMemberName} to see if ${toMemberName} have some feelings towards you!`
     );
-    requestsReceivedToThisUser.forEach((r) => {
-      bot.sendMessage(
-        r.fromId,
-        `Hi, ${r.toUserName} tried selecting someone, but unfortunately that wasn't you.`
-      );
-    });
+    requestsReceivedToThisUser
+      .filter((r) => !r.matched)
+      .forEach((r) => {
+        bot.sendMessage(
+          r.fromId,
+          `Hi, ${r.toUserName} tried selecting someone, but unfortunately that wasn't you.`
+        );
+      });
   }
 
   const { extraMsg } = await getAnswer(
     {
       key: "extraMsg",
-      prompt: `Enter the special message you want to send to ${toMember.fullName}. eg: "I'm your classmate and we used to go together by College Bus. I don't talk very much, but I really like you!"\nNote, chances are limited, so choose your message carefully.`,
-      formatter: (val) => (val === "." ? null : val),
+      prompt: `Enter the special message you want to send to ${toMember.fullName}. eg: "I'm your classmate and we used to go together by College Bus. I don't talk very much, but I really like you!"`,
+      // formatter: (val) => (val === "." ? null : val),
     },
     chatId,
     bot
@@ -94,7 +97,6 @@ const sendController = async (bot, msg) => {
     chatId,
     bot
   );
-  console.log(toMember);
 
   if (confirmSendMessage) {
     try {

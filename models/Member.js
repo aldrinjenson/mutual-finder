@@ -21,7 +21,7 @@ const MemberSchema = new Schema(
       type: Boolean,
       required: true,
     },
-    imgPath: {
+    imgUrl: {
       type: String,
       required: false,
     },
@@ -37,6 +37,10 @@ const MemberSchema = new Schema(
     userId: {
       type: String,
       required: true,
+    },
+    allStrikesOut: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

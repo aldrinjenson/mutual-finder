@@ -26,11 +26,7 @@ const faqs = [
   },
   {
     q: "I never signed up for this/Even though this may be useful for many, I don't want to participate in this. What should I do?",
-    a: "This bot was made to give everyone a fair chance. Who knows, without your knowledge, there maybe someone who have immense feelings towards you. However, if you really want to make yourself unavailable, you can try the /removeme command to remove yourself from the list of members. This will hide your name from everyone else. A notification will be sent to those who have already sent you any message requests(if any) saying that you've made yourself unavilable.\nNote that if you've already sent requests to anyone else before making yourself unavailable, they won't be able to choose yourself back from the list anymore",
-  },
-  {
-    q: "I accidentally removed myself from the list. Can I join back?",
-    a: "Nope. Once you remove yourself/make yourself unavailable, it's not possible to join back.",
+    a: "This bot was made to give everyone a fair chance. Who knows, without your knowledge, there maybe someone who have immense feelings towards you! However, if you really want to make yourself unavailable, you can try the /togglestatus command to remove yourself from the list of members. This will hide your name from everyone else. A notification will be sent to those who have already sent you any message requests(if any) saying that you've made yourself unavilable.\nNote that if you've already sent requests to anyone else before making yourself unavailable, they won't be able to choose yourself back from the list anymore",
   },
   {
     q: "My crush's name is not present in this list! Why?",
@@ -54,7 +50,7 @@ const faqs = [
   },
   {
     q: "Anything else I should know about the bot?",
-    a: "This bot was made with only good intentsions. However like all software, it may not be perfect and would be prone to bugs or misuse by the users. Even though sufficient care has been made to handle edge cases, if the bot stops working correctly in between or if some perople misuses this, the creator of this bot will not be responsible and hence should not be made accountalble.",
+    a: "This bot was made with only good intentions. However like all software, it may not be perfect and would be prone to bugs or misuse by the users. Even though sufficient care has been made to handle edge cases, if the bot stops working correctly in between or if some perople misuses this, the creator of this bot will not be responsible and hence should not be made accountalble.",
   },
 ];
 

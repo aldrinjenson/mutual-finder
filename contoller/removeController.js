@@ -3,11 +3,18 @@ const { getAnswerFromButtonGroup } = require("../utils/lib");
 
 const removeController = async (bot, msg, list) => {
   const chatId = msg.chat.id;
-  const confirmButtons = ["Yes, Remove me", "No, Cancel"];
-  const confirmRemove = await getAnswerFromButtonGroup(
+  const member = await Member.findOne({ chatId }).lean().exec();
+
+  const isAvailable = member.available;
+  await bot.sendMessage(
+    chatId,
+    `You current status is ${isAvailable ? "Available" : "Unavailable"}`
+  );
+  const confirmButtons = ["Yes, toggle status", "No, Cancel"];
+  const confirmToggle = await getAnswerFromButtonGroup(
     {
-      key: "confirmRemove",
-      prompt: `Are you sure, you want to remove yourself?\nThis process is irriversible. Maybe check out /faq once.`,
+      key: "confirmToggle",
+      prompt: `Toggle status?`,
       buttons: confirmButtons,
       condition: (val) => confirmButtons.includes(val),
       formatter: (val) => val === confirmButtons[0],
@@ -15,29 +22,40 @@ const removeController = async (bot, msg, list) => {
     chatId,
     bot
   );
-  if (confirmRemove) {
+  if (confirmToggle) {
     try {
-      await Member.findOneAndUpdate(
-        { userId: msg.from.id },
-        { available: false }
+      const updatedMember = await Member.findOneAndUpdate(
+        { userId: chatId },
+        { available: !isAvailable }
       ).exec();
+      let updatedMsg = `Status updated to ${
+        updatedMember.available ? "Available" : "Unavailable"
+      }`;
+      if (!updatedMember.available) {
+        updatedMsg +=
+          "\nYour name will not be visible in the list unless toggled back!";
+      }
+      bot.sendMessage(
+        chatId,
+        `${updatedMsg}\nEnter /togglestatus to change status again`
+      );
       Member.find({ available: true })
         .lean()
         .exec()
         .then(async (r) => {
-          bot.sendMessage(
-            chatId,
-            "You have been successfully removed from the list."
-          );
           const requestsReceivedToThisUser = await Request.find({
-            toId: msg.from.id,
+            toId: chatId,
           })
             .lean()
             .exec();
           requestsReceivedToThisUser.forEach((r) => {
             bot.sendMessage(
               r.fromId,
-              `Hi, this is to let you know that ${r.toUserName} has made themeselves unavailable by removing themselves.`
+              `Hi, this is to let you know that ${
+                r.toUserName
+              } has changed their availability status to ${
+                updatedMember.available ? "Available" : "Unavailable"
+              }`
             );
           });
           const availableMembers = await Member.find({ available: true })
@@ -45,7 +63,7 @@ const removeController = async (bot, msg, list) => {
             .exec();
           list.members = availableMembers;
         });
-      await Request.updateMany({ toId: msg.from.id }, { invalid: true }).exec();
+      await Request.updateMany({ toId: chatId }, { invalid: true }).exec();
     } catch (err) {
       console.log("Error in making unavilable: " + err);
     }
