@@ -25,6 +25,11 @@ const RequestSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    invalid: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
   { timestamps: true }
 );

@@ -5,8 +5,7 @@
     "fullName": "Aldrin Jenson",
     "photoExists": true,
     "imgPath": "photos/945086573.jpg",
-    "searchString": "aldrin jenson aldrinjenson",
-    "allStrikesUsed": false
+    "searchString": "aldrin jenson aldrinjenson"
   },
   {
     "userId": 5111199187,
@@ -14,7 +13,6 @@
     "fullName": "Edwin Jenson",
     "photoExists": true,
     "imgPath": "photos/945086573.jpg",
-    "searchString": "edwin jenson",
-    "allStrikesUsed": false
+    "searchString": "edwin jenson"
   }
 ]
