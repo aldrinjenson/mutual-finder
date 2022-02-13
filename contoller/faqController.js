@@ -52,6 +52,10 @@ const faqs = [
     q: "What will I lose if I send the message?",
     a: "It depends on how you've written your message. If it's super vague, your crush will probably not recognize you. That way, it'll be the same as the present state, nothing to lose except that your crush would know that there is someone who has feelings towards them. If you put your message the right way, your crush will recognize you and both of you can go celebrate Valentine's day together. So seriously dude, send that message while the opportnity is available.",
   },
+  {
+    q: "Anything else I should know about the bot..?",
+    a: "This bot was made with only good intentsions. However like all software, it may not be perfect and would be prone to bugs or misuse by the users. Even though sufficient care has been made to handle edge cases, if the bot stops working correctly in between or if some perople misuses this, the creator of this bot will not be responsible and hence should not be made accountalble.",
+  },
 ];
 
 const faqString = faqs

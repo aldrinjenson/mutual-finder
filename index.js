@@ -2,6 +2,7 @@ process.env.NTBA_FIX_319 = 1;
 process.env.NTBA_FIX_350 = 1;
 require("dotenv").config();
 const mongoose = require("mongoose");
+const express = require("express");
 const TelegramBot = require("node-telegram-bot-api");
 const membersJson = require("./members.json");
 const { initializeLibFunctions } = require("./utils/lib");
@@ -15,11 +16,16 @@ const { Member } = require("./models");
 
 // initial config
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
+const app = express();
 bot.on("polling_error", console.log);
 initializeLibFunctions(bot);
 
 let list = { members: membersJson };
 
+const refetch = async () => {
+  const availableMembers = await Member.find({ available: true }).lean().exec();
+  list.members = availableMembers;
+};
 mongoose
   .connect(process.env.DB_URL, {
     useNewUrlParser: true,
@@ -27,10 +33,7 @@ mongoose
   })
   .then(async () => {
     console.log("Connected to db");
-    const availableMembers = await Member.find({ available: true })
-      .lean()
-      .exec();
-    list.members = availableMembers;
+    refetch();
   })
   .catch((err) => console.log("error in connecting to db" + err));
 
@@ -86,3 +89,16 @@ bot.onText(/\/removeme/, async (msg) => {
 bot.onText(/\/faq/, (msg) => {
   faqController(bot, msg);
 });
+
+app.get("/", (req, res) => {
+  res.send("server active");
+});
+app.get("/refetch", (req, res) => {
+  refetch()
+    .then(() => {
+      res.send("list updated");
+    })
+    .catch((err) => res.send("Error in updating: " + err));
+});
+const PORT = 5000 || process.env.PORT;
+app.listen(PORT, () => console.log("server active on port " + PORT));
