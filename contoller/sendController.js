@@ -109,7 +109,7 @@ const sendController = async (bot, msg) => {
       });
 
       const savedRequest = await newRequest.save();
-      console.log(savedRequest);
+      // console.log(savedRequest);
     } catch (err) {
       bot.sendMessage(chatId, "There's been some error. Please try again");
       console.log("Error: " + err);

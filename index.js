@@ -80,8 +80,7 @@ bot.on("inline_query", (msg) => {
       break;
     }
   }
-  console.log(matchedMembers);
-  bot.answerInlineQuery(msg.id, matchedMembers, { cache_time: 1200 });
+  bot.answerInlineQuery(msg.id, matchedMembers);
 });
 
 bot.onText(/\/removeme/, async (msg) => {

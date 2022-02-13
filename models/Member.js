@@ -33,11 +33,6 @@ const MemberSchema = new Schema(
       type: String,
       required: false,
     },
-    strikesUsed: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
     available: {
       type: Boolean,
       required: false,

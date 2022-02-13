@@ -5,21 +5,24 @@
     "fullName": "Gokulnath MEC",
     "photoExists": true,
     "imgPath": "photos/742028918.jpg",
-    "searchString": "gokulnath mec gokz1119"
+    "searchString": "gokulnath mec gokz1119",
+    "available": true
   },
   {
     "userId": 906712240,
     "userName": "hatim_the_dark_knight",
     "fullName": "Farhath MEC",
     "photoExists": false,
-    "searchString": "farhath mec hatim_the_dark_knight"
+    "searchString": "farhath mec hatim_the_dark_knight",
+    "available": true
   },
   {
     "userId": 704570591,
     "userName": "actuday",
     "fullName": "Arun MEC",
     "photoExists": false,
-    "searchString": "arun mec actuday"
+    "searchString": "arun mec actuday",
+    "available": true
   },
   {
     "userId": 945086573,
@@ -27,6 +30,7 @@
     "fullName": "Aldrin Jenson",
     "photoExists": true,
     "imgPath": "photos/945086573.jpg",
-    "searchString": "aldrin jenson aldrinjenson"
+    "searchString": "aldrin jenson aldrinjenson",
+    "available": true
   }
 ]
