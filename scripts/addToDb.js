@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { Member } = require("../models");
-const members = require("../scraper/members.json");
+const members = require("../members.json");
 require("dotenv").config();
 
 const main = () => {
