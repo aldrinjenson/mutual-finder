@@ -62,7 +62,7 @@ bot.on("inline_query", (msg) => {
   let count = 0;
   for (let i = 0; i < members.length; i++) {
     const m = members[i];
-    if (m.searchString.includes(query) || m.searchString.includes(query)) {
+    if (m.searchString.includes(query)) {
       const newMember = {
         id: m.chatId,
         type: "article",
@@ -77,7 +77,7 @@ bot.on("inline_query", (msg) => {
       count++;
     }
 
-    if (count === 7) {
+    if (count === 20) {
       break;
     }
   }
