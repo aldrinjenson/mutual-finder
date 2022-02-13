@@ -70,7 +70,7 @@ bot.on("inline_query", (msg) => {
         thumb_width: 6,
         thumb_height: 6,
         title: m.fullName,
-        description: m.userName,
+        description: m.username,
         message_text: `/send ${m.chatId}`,
       };
       matchedMembers.push(newMember);

@@ -4,20 +4,29 @@ const { Member } = require("../models");
 
 const startController = async (bot, msg, list) => {
   const chatId = msg.chat.id;
+
   const member = await Member.findOne({ chatId }).lean().exec();
-  const { first_name, last_name, userName, id: userId } = msg.from;
+  const { first_name, last_name, username, id: userId } = msg.from;
 
   if (!member) {
     const { photos } = await bot.getUserProfilePhotos(msg.from.id, {
       limit: 1,
     });
-    const fullName = first_name + " " + last_name || "";
+    let fullName = first_name || " ";
+    if (last_name) {
+      fullName += " " + last_name;
+    }
+    let searchString = fullName.toLowerCase();
+    if (username) {
+      searchString += " " + username.toLowerCase();
+    }
+
     const newMember = new Member({
-      userName,
+      username,
       chatId,
       userId,
       fullName: fullName || username,
-      searchString: fullName.toLowerCase() + " " + userName?.toLowerCase(),
+      searchString,
       imgUrl: photos.length ? await bot.getFileLink(photos[0][0].file_id) : "",
       photoExists: photos.length !== 0,
       available: true,
