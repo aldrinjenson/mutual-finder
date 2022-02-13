@@ -21,16 +21,32 @@ const faqs = [
     a: "The bare minimum required. The 6 digit Telegram IDs of both the participants will be stored. This is required to inform both the members once a match has been made. Rest assured, whatever data stored, will be cleared once the bot has been taken down.",
   },
   {
-    q: "I updated my profile picture, why is it not getting updated in the bot?",
+    q: "I updated my profile picture or name, why is it not getting updated in the bot?",
     a: "Due to lack of resources, there may be a delay in the profile pictures getting updated often to 2 hours or more.",
   },
   {
     q: "I never signed up for this/Even though this may be useful for many, I don't want to participate in this. What should I do?",
-    a: "This bot was made to give everyone a fair chance. Who knows, without your knowledge, there maybe someone who have immense feelings towards you. However, if you really want to make yourself unavailable, you can try the /removeme command to remove yourself from the list of members. This will hide your name from everyone else. A notification will be sent to those who have already sent you any message requests(if any) saying that you've made yourself unavilable.\nNote that if you've already sent requests to anyone else before making yourself unavailable, they won't be able to choose yourself back as well",
+    a: "This bot was made to give everyone a fair chance. Who knows, without your knowledge, there maybe someone who have immense feelings towards you. However, if you really want to make yourself unavailable, you can try the /removeme command to remove yourself from the list of members. This will hide your name from everyone else. A notification will be sent to those who have already sent you any message requests(if any) saying that you've made yourself unavilable.\nNote that if you've already sent requests to anyone else before making yourself unavailable, they won't be able to choose yourself back from the list anymore",
+  },
+  {
+    q: "I accidentally removed myself from the list. Can I join back?",
+    a: "Nope. Once you remove yourself/make yourself unavailable, it's not possible to join back.",
+  },
+  {
+    q: "My name is not present here and I want to participate!",
+    a: "Forward the output of @getmyid_telegrambot to @bot_match_admin along with some proof to show you're an MECian. May take some time to get updated",
+  },
+  {
+    q: "Who made this bot?",
+    a: "An MEC-ian who faced the problem firsthand and wanted to find a solution. Note that this bot is not associated to any MEC officials or clubs or groups.",
   },
   {
     q: "Should I use this bot and send a message to my crush?",
     a: "Yes.",
+  },
+  {
+    q: "I got a message, but I can't guess who sent it. Can the bot help?",
+    a: `In this case the bot can't do anything. However, whoever sent you the message can send another message with a better extra description to give some hints. This is possible only if they haven't already used thier ${max_requests} chances.`,
   },
   {
     q: "What will I lose if I send the message?",

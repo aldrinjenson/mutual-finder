@@ -1,14 +1,13 @@
-const { refetchMemberList } = require("..");
 const { Request, Member } = require("../models");
 const { getAnswerFromButtonGroup } = require("../utils/lib");
 
-const removeController = async (bot, msg) => {
+const removeController = async (bot, msg, list) => {
   const chatId = msg.chat.id;
   const confirmButtons = ["Yes, Remove me", "No, Cancel"];
   const confirmRemove = await getAnswerFromButtonGroup(
     {
       key: "confirmRemove",
-      prompt: `Are you sure, you want to remove yourself?`,
+      prompt: `Are you sure, you want to remove yourself?\nThis process is irriversible. Maybe check out /faq once.`,
       buttons: confirmButtons,
       condition: (val) => confirmButtons.includes(val),
       formatter: (val) => val === confirmButtons[0],
@@ -26,7 +25,10 @@ const removeController = async (bot, msg) => {
         .lean()
         .exec()
         .then(async (r) => {
-          bot.sendMessage(chatId, "You have been successfully removed.");
+          bot.sendMessage(
+            chatId,
+            "You have been successfully removed from the list."
+          );
           const requestsReceivedToThisUser = await Request.find({
             toId: msg.from.id,
           })
@@ -35,10 +37,13 @@ const removeController = async (bot, msg) => {
           requestsReceivedToThisUser.forEach((r) => {
             bot.sendMessage(
               r.fromId,
-              `Hi, this is to let you know that ${r.toUserName} has made themeselves unavailable.`
+              `Hi, this is to let you know that ${r.toUserName} has made themeselves unavailable by removing themselves.`
             );
           });
-          // refetchMemberList();
+          const availableMembers = await Member.find({ available: true })
+            .lean()
+            .exec();
+          list.members = availableMembers;
         });
       await Request.updateMany({ toId: msg.from.id }, { invalid: true }).exec();
     } catch (err) {

@@ -18,12 +18,7 @@ const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 bot.on("polling_error", console.log);
 initializeLibFunctions(bot);
 
-let members = membersJson;
-
-const refetchMemberList = async () => {
-  const availableMembers = await Member.find({ available: true }).lean().exec();
-  members = availableMembers;
-};
+let list = { members: membersJson };
 
 mongoose
   .connect(process.env.DB_URL, {
@@ -32,12 +27,18 @@ mongoose
   })
   .then(async () => {
     console.log("Connected to db");
-    refetchMemberList();
+    const availableMembers = await Member.find({ available: true })
+      .lean()
+      .exec();
+    list.members = availableMembers;
   })
   .catch((err) => console.log("error in connecting to db" + err));
 
-const helpMessage =
-  "Choose the name of your crush and hit enter. You have nothing to lose!";
+const helpMessage = `Chose the special person you have feelings for. Let them know that someone cares about them. Give as much information about you as you want. All messages are private and secure. If they identifies you, both of you will be notified and you can spend Valentine's day together. Else your name won't be revealed as well. One person can send maximum 3 messages. Read faqs with /faq. Enter /start to begin.\nCommands Available:\nstart - start the bot
+help - show help instruction
+faq - show faqs
+removeme - remove your participation and make yourself unavailable`;
+
 bot.onText(/\/start/, (msg) => {
   startController(bot, msg);
 });
@@ -52,6 +53,7 @@ bot.onText(/\/send/, async (msg) => {
 
 bot.on("inline_query", (msg) => {
   const query = msg.query.toLowerCase();
+  const members = list.members;
   let matchedMembers = [];
   let count = 0;
   for (let i = 0; i < members.length; i++) {
@@ -78,10 +80,9 @@ bot.on("inline_query", (msg) => {
 });
 
 bot.onText(/\/removeme/, async (msg) => {
-  removeController(bot, msg);
+  removeController(bot, msg, list);
 });
 
 bot.onText(/\/faq/, (msg) => {
   faqController(bot, msg);
 });
-module.exports = { refetchMemberList };
