@@ -39,9 +39,7 @@ const sendController = async (bot, msg) => {
 
     bot.sendMessage(
       chatId,
-      `Congragulations, You've got a match!\nBoth you and ${name} can spend Valentine's day together❤️\nNotification sent to ${
-        matchedUserId ? "@" + matchedUserId : name
-      } informing the match.\nCongragultions!🔥`
+      `Congragulations, You've got a match!\nBoth you and ${name} can spend Valentine's day together❤️\nNotification sent to ${name} informing the match!💌`
     );
     bot.sendMessage(
       matchedUserId,
@@ -85,10 +83,10 @@ const sendController = async (bot, msg) => {
 
   const confirmButtons = ["Yes, Nothing to lose🤞", "No, I'm good with myself"];
   const crushMsg = `Hi, this is to let you know that someone from MEC have feelings towards you. Here is the anonymous message sent by that special person to you:\n---\n${extraMsg}\n---\n\nHave some idea who this is from? Enter /start to check or try /faq or /help to know more details about this bot.`;
-  const { confirmSendMessage } = await getAnswerFromButtonGroup(
+  const confirmSendMessage = await getAnswerFromButtonGroup(
     {
       key: "confirmSendMessage",
-      prompt: `The following message will be sent to ${toMember.fullName}:\n${extraMsg}\n\nDo you want to confirm this?`,
+      prompt: `The following message will be sent to ${toMember.fullName}:\n${crushMsg}\n\n\n-------\nDo you want to confirm this?`,
       buttons: confirmButtons,
       condition: (val) => confirmButtons.includes(val),
       formatter: (val) => val === confirmButtons[0],
@@ -96,6 +94,8 @@ const sendController = async (bot, msg) => {
     chatId,
     bot
   );
+  console.log(confirmSendMessage);
+
   if (confirmSendMessage) {
     try {
       bot.sendMessage(toMember.userId, crushMsg);
