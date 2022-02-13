@@ -17,6 +17,7 @@ const { Member } = require("./models");
 // initial config
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 const app = express();
+app.use(express.json());
 const placeHolderImage =
   "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.n1C1oxOvYLLyDIavrBFoNQHaHa%26pid%3DApi&f=1";
 bot.on("polling_error", console.log);
@@ -106,5 +107,29 @@ app.get("/refetch", (req, res) => {
     })
     .catch((err) => res.send("Error in updating: " + err));
 });
+
+const sleep = (delay) =>
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+
+app.post("/broadcast", async (req, res) => {
+  const msg = req.body?.msg;
+  if (!msg) {
+    res.send("message content required!");
+  }
+  const allMembers = await Member.find({}).lean().exec();
+  for (let i = 0; i < allMembers.length; i++) {
+    const m = allMembers[i];
+    bot.sendMessage(m.chatId, msg);
+    if (i % 15 === 0) {
+      await sleep(3000);
+    }
+  }
+  res.send("ok");
+});
+
 const PORT = 5000 || process.env.PORT;
 app.listen(PORT, () => console.log("server active on port " + PORT));
