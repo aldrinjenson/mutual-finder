@@ -7,15 +7,11 @@ const MemberSchema = new Schema(
       type: String,
       required: false,
     },
-    userId: {
+    chatId: {
       unique: true,
       type: Number,
       required: true,
       index: 1,
-    },
-    fullName: {
-      type: String,
-      required: false,
     },
     fullName: {
       type: String,
@@ -37,6 +33,10 @@ const MemberSchema = new Schema(
       type: Boolean,
       required: false,
       default: true,
+    },
+    userId: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }

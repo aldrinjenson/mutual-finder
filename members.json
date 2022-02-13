@@ -23,14 +23,5 @@
     "photoExists": false,
     "searchString": "arun mec actuday",
     "available": true
-  },
-  {
-    "userId": 945086573,
-    "userName": "aldrinjenson",
-    "fullName": "Aldrin Jenson",
-    "photoExists": true,
-    "imgPath": "photos/945086573.jpg",
-    "searchString": "aldrin jenson aldrinjenson",
-    "available": true
   }
 ]

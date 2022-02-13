@@ -42,8 +42,8 @@ help - show help instruction
 faq - show faqs
 removeme - remove your participation and make yourself unavailable`;
 
-bot.onText(/\/start/, (msg) => {
-  startController(bot, msg);
+bot.onText(/\/start/, async (msg) => {
+  startController(bot, msg, list);
 });
 
 bot.onText(/\/help/, async (msg) => {
@@ -57,20 +57,21 @@ bot.onText(/\/send/, async (msg) => {
 bot.on("inline_query", (msg) => {
   const query = msg.query.toLowerCase();
   const members = list.members;
+
   let matchedMembers = [];
   let count = 0;
   for (let i = 0; i < members.length; i++) {
     const m = members[i];
     if (m.searchString.includes(query) || m.searchString.includes(query)) {
       const newMember = {
-        id: m.userId,
+        id: m.chatId,
         type: "article",
         thumb_url: `${process.env.BASE_URL}/${m.userId}.jpg`,
         thumb_width: 6,
         thumb_height: 6,
         title: m.fullName,
         description: m.userName,
-        message_text: `/send ${m.userId}`,
+        message_text: `/send ${m.chatId}`,
       };
       matchedMembers.push(newMember);
       count++;

@@ -73,7 +73,7 @@ const sendController = async (bot, msg) => {
   const { extraMsg } = await getAnswer(
     {
       key: "extraMsg",
-      prompt: `Enter the special message you want to send. eg: "I'm your classmate and we used to go together by College Bus. I don't talk very much, but I really like you!"\nNote, chances are limited, so choose your message carefully.`,
+      prompt: `Enter the special message you want to send to ${toMember.fullName}. eg: "I'm your classmate and we used to go together by College Bus. I don't talk very much, but I really like you!"\nNote, chances are limited, so choose your message carefully.`,
       formatter: (val) => (val === "." ? null : val),
     },
     chatId,
@@ -94,21 +94,23 @@ const sendController = async (bot, msg) => {
     chatId,
     bot
   );
-  console.log(confirmSendMessage);
+  console.log(toMember);
 
   if (confirmSendMessage) {
     try {
-      bot.sendMessage(toMember.userId, crushMsg);
+      bot
+        .sendMessage(selectedUserId, crushMsg)
+        .then((r) => console.log("Message sent successfully"));
       bot.sendMessage(chatId, `Message has been sent to ${toMember.fullName}`);
       const newRequest = new Request({
-        fromId: msg.from.id,
+        fromId: msg.chat.id,
         toId: selectedUserId,
         matched: false,
         fromUserName: currUserName,
         toUserName: toMember.fullName,
       });
 
-      const savedRequest = await newRequest.save();
+      await newRequest.save();
       // console.log(savedRequest);
     } catch (err) {
       bot.sendMessage(chatId, "There's been some error. Please try again");
