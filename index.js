@@ -75,10 +75,12 @@ bot.on("inline_query", (msg) => {
       matchedMembers.push(newMember);
       count++;
     }
+
     if (count === 7) {
       break;
     }
   }
+  console.log(matchedMembers);
   bot.answerInlineQuery(msg.id, matchedMembers, { cache_time: 1200 });
 });
 
