@@ -4,7 +4,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 const TelegramBot = require("node-telegram-bot-api");
-const membersJson = require("./members.json");
+const membersJson = {};
 const { initializeLibFunctions } = require("./utils/lib");
 const {
   faqController,
