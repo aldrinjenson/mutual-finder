@@ -5,14 +5,19 @@ const axios = require("axios");
 const imageBaseUrl = process.env.BASE_URL;
 const sendFileToDownload = async (imgUrl, userId) => {
   axios
-    .post(imageBaseUrl + "/download", { url: imgUrl, userId })
+    .get(imageBaseUrl + "/download", {
+      params: {
+        url: imgUrl,
+        userId,
+      },
+    })
     .then(() => console.log("profile updated"))
     .catch((err) => console.log("error in updatin profile: " + err));
 };
-// sendFileToDownload(
-//   "https://api.telegram.org/file/bot1835355217:AAEI_y3rqagYGctMfnvKQtVn8R2__M4mBKU/photos/file_1.jpg",
-//   4321
-// );
+sendFileToDownload(
+  "https://api.telegram.org/file/bot1835355217:AAEI_y3rqagYGctMfnvKQtVn8R2__M4mBKU/photos/file_1.jpg",
+  43211
+);
 
 const startController = async (bot, msg, list) => {
   const chatId = msg.chat.id;
