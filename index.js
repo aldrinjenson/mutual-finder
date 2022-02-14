@@ -11,6 +11,7 @@ const {
   removeController,
   sendController,
   startController,
+  feedbackController,
 } = require("./contoller");
 const { Member } = require("./models");
 
@@ -95,6 +96,10 @@ bot.onText(/\/togglestatus/, async (msg) => {
 
 bot.onText(/\/faq/, (msg) => {
   faqController(bot, msg);
+});
+
+bot.onText(/\/feedback/, (msg) => {
+  feedbackController(bot, msg);
 });
 
 app.get("/", (req, res) => {

@@ -71,6 +71,7 @@ const sendController = async (bot, msg) => {
           `Hi, ${r.toUserName} tried selecting someone, but unfortunately that wasn't you.`
         );
       });
+    // await Member.findByIdAndUpdate();
   }
 
   const { extraMsg } = await getAnswer(

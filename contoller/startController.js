@@ -12,7 +12,7 @@ const sendFileToDownload = async (imgUrl, userId) => {
       },
     })
     .then(() => console.log("profile updated"))
-    .catch((err) => console.log("error in updatin profile: " + err));
+    .catch((err) => console.log("error in updating profile: "));
 };
 // sendFileToDownload(
 //   "https://api.telegram.org/file/bot1835355217:AAEI_y3rqagYGctMfnvKQtVn8R2__M4mBKU/photos/file_1.jpg",
@@ -21,7 +21,7 @@ const sendFileToDownload = async (imgUrl, userId) => {
 
 const startController = async (bot, msg, list) => {
   const chatId = msg.chat.id;
-  const memberCount = await Member.count();
+  const memberCount = await Member.count({ available: true });
   bot.sendMessage(
     chatId,
     `Search for your special person from ${memberCount} members`

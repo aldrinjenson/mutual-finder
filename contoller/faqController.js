@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     q: "My crush's name is not present in this list! Why?",
-    a: "Probably because your crush hasn't seen this bot before. Only when someone starts using the bot will they be shwon in the list. You can send the bot link to any group in which your crush is present so that she will get to know about the bot.",
+    a: "Probably because your crush hasn't seen this bot before. Only when someone starts using the bot will they be shown in the list. You can send the bot link to any group in which your crush is present so that they will get to know about the bot.",
   },
   {
     q: "Who made this bot?",
