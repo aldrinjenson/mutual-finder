@@ -14,13 +14,18 @@ const sendFileToDownload = async (imgUrl, userId) => {
     .then(() => console.log("profile updated"))
     .catch((err) => console.log("error in updatin profile: " + err));
 };
-sendFileToDownload(
-  "https://api.telegram.org/file/bot1835355217:AAEI_y3rqagYGctMfnvKQtVn8R2__M4mBKU/photos/file_1.jpg",
-  43211
-);
+// sendFileToDownload(
+//   "https://api.telegram.org/file/bot1835355217:AAEI_y3rqagYGctMfnvKQtVn8R2__M4mBKU/photos/file_1.jpg",
+//   43211
+// );
 
 const startController = async (bot, msg, list) => {
   const chatId = msg.chat.id;
+  const memberCount = await Member.count();
+  bot.sendMessage(
+    chatId,
+    `Search for your special person from ${memberCount} members`
+  );
 
   const member = await Member.findOne({ chatId }).lean().exec();
 

@@ -82,7 +82,7 @@ bot.on("inline_query", (msg) => {
       count++;
     }
 
-    if (count === 20) {
+    if (count === 3) {
       break;
     }
   }
