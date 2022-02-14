@@ -55,8 +55,8 @@ bot.onText(/\/start/, async (msg) => {
 
 bot.onText(/\/help/, async (msg) => {
   const chatId = msg.chat.id;
+  await bot.sendMessage(msg.chat.id, helpMessage);
   await bot.sendMessage(chatId, endMessage);
-  bot.sendMessage(msg.chat.id, helpMessage);
 });
 
 bot.onText(/\/send/, async (msg) => {
@@ -137,7 +137,7 @@ app.post("/broadcast", async (req, res) => {
   const allMembers = await Member.find({}).lean().exec();
   for (let i = 0; i < allMembers.length; i++) {
     const m = allMembers[i];
-    bot.sendMessage(m.chatId, msg);
+    bot.sendMessage(m.chatId, msg, { disable_web_page_preview: true });
     if (i % 15 === 0) {
       await sleep(3000);
     }
