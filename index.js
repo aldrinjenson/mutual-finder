@@ -14,6 +14,7 @@ const {
   feedbackController,
 } = require("./contoller");
 const { Member } = require("./models");
+const endMessage = require("./contoller/utils");
 
 // initial config
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
@@ -47,15 +48,21 @@ faq - show faqs
 removeme - remove your participation and make yourself unavailable`;
 
 bot.onText(/\/start/, async (msg) => {
-  startController(bot, msg, list);
+  const chatId = msg.chat.id;
+  await bot.sendMessage(chatId, endMessage);
+  // startController(bot, msg, list);
 });
 
 bot.onText(/\/help/, async (msg) => {
+  const chatId = msg.chat.id;
+  await bot.sendMessage(chatId, endMessage);
   bot.sendMessage(msg.chat.id, helpMessage);
 });
 
 bot.onText(/\/send/, async (msg) => {
-  sendController(bot, msg);
+  const chatId = msg.chat.id;
+  await bot.sendMessage(chatId, endMessage);
+  // sendController(bot, msg);
 });
 
 bot.on("inline_query", (msg) => {
@@ -91,7 +98,9 @@ bot.on("inline_query", (msg) => {
 });
 
 bot.onText(/\/togglestatus/, async (msg) => {
-  removeController(bot, msg, list);
+  const chatId = msg.chat.id;
+  await bot.sendMessage(chatId, endMessage);
+  // removeController(bot, msg, list);
 });
 
 bot.onText(/\/faq/, (msg) => {
